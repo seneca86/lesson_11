@@ -1,27 +1,32 @@
-# Instructions  
+# Modules
 
-  ** this file should contain student lesson instructions **
+## Introuduction
 
-  _ students will see these instructions in a read-only workspace tab _
+So far we have covered built-in and customized data and code structures. We will now use those to write our own realistic programs in Python.
 
-  ## Steps
-  1. 
-  2. 
-  3. 
+You may think of data types as words, expressions and statements as sentences, functions as paragraphs, and modules as chapters.
 
-  Use [Markdown](https://gist.github.com/cuonggt/9b7d08a597b167299f0d) to format your instructions.
+## The import statement
 
-  For example, here is a code block in python3
+`import module` is the simplest use of the import statement. Let's write a program that chooses which sport we will play during a school break.
+
 ```python
-def hello_world():
-  print("hello world!")
+from random import choice
+sports = ['ski', 'scuba', 'football', 'baseball', 'soccer']
+
+def random_picker():
+    '''
+    Returns a random element from the sports list
+    '''
+    return choice(sports)
 ```
 
+We will store this into a `sports.py` _module_ and then call the module from `main.py`.
 
-  Include an image by placing it in the `assets` folder.
+```python
+import sports
+sport = sports.random_picker()
+print(f'We chose to play {sport}')
+```
 
-  For example, here is the Replit logo:
-
-  ![alt text](assets/logo.png)
-  
-  
+Note that the two files need to be in the same directory.
