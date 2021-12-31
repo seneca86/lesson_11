@@ -126,3 +126,145 @@ supplemental_diet_counter = Counter(supplemental_diet)
 diet_counter + supplemental_diet_counter
 ```
 
+We can subtract one from the other with `-`. Think of this as set operations.
+
+```python
+diet_counter - supplemental_diet_counter
+```
+
+Common items are obtained with the `&` operator.
+
+```python
+diet_counter & supplemental_diet_counter
+```
+
+Finally, the union operator `|` provides the items in either one counter or the other.
+
+```python
+diet_counter | supplemental_diet_counter
+```
+
+### Stack + Queue -> Deque
+
+_Deque_ (pronunced like _deck_) is short for _double-ended queue_. It has features of both a stack and a queue, and useful when adding or deleting items from either end of a sequence. `popleft()` and `pop()` remove the leftmost and rightmost items or the deque, respectively, working from the ends towards the middle. `appendleft()` and `append()` are the corresponding methods to add elements at the endpoints.
+
+Let's practice with the example of a restaurant.
+
+```python
+from collections import deque
+dq = deque()
+# Customers arrive (from the right)
+dq.append('Ann')
+dq.append('Bob')
+dq.append('Charlie')
+print(dq)
+# Two customers get seated
+dq.popleft()
+dq.popleft()
+print(dq)
+# A VIP customer arrives and skips the queue
+dq.appendleft('VIP guy')
+print(dq)
+# The customer that was jumped over gets upset and leaves
+dq.pop()
+print(dq)
+```
+
+### Itertools
+
+`itertools` contains iterator functions that return items when called in a loop, remembering its state between calls.
+
+`chain` runs through its arguments as if they were a single iterable.
+
+```python
+import itertools
+for i in itertools.chain((1, 'one'), (2, 'two'), (3, 'three')):
+    print(i)
+```
+
+`cycle` cycles through its arguments infinitely, so we need some control mechanism (for instance a `break` command).
+
+```python
+k = 0
+for j in itertools.cycle(('one', 'two', 'three')):
+    k += 1
+    print(j)
+    if k > 100:
+        break
+```
+
+`accumulate()` calculates accumulated values, by default adding them, although it accepts a parameter to calculate e.g. accumulated products.
+
+```python
+monthly_sales = (10, 15, 10, 12, 15, 18, 20, 15, 12, 15, 12, 10)
+for s in itertools.accumulate(monthly_sales):
+    print(s)
+```
+
+### Pretty print
+
+`pprint()` stands for _pretty print_ and formats the output a bit more nicely. The difference becomes apparent with long variables.
+
+```python
+from pprint import pprint
+tuple_ = ((1, 2, 'super loooooong striiiiiiing', 'another extra loooooong string'),
+          ('dog', 'cat'),
+          ((1, 1, 1), 2, 2, ('looooong string', 'another looooong string')))
+print(tuple_)
+pprint(tuple_)
+```
+
+### Random functions
+
+We have already used `random.choice()`. 
+
+```python
+from random import choice
+choice(('blue', 'red', 'yellow'))
+choice(['one', 'two', 'three'])
+choice(range(20))
+choice('letters')
+```
+If we want a sample of more than one element, we need `choices`. Note that these are samples __with__ replacement.
+
+```python
+from random import choices
+pprint(choices(('blue', 'red', 'yellow'), k=7))
+pprint(choices(['one', 'two', 'three'], k=5))
+pprint(choices(range(20), k=5))
+pprint(choices('letters', k=9))
+```
+
+When we want to have samples __without__ replacement we need `sample`.
+
+```python
+from random import sample
+pprint(sample(('blue', 'red', 'yellow'), 3))
+pprint(sample(['one', 'two', 'three'], 2))
+pprint(sample(range(20), 5))
+pprint(sample('letters', 3))
+```
+
+When the sample consists of integers, we can use `randint()` (which includes both endpoints of the interval) or `randrange()` (which does not include the endpoint and which specifies the step).
+
+```python
+from random import randint
+randint(10, 20)
+```
+
+```python
+from random import randrange
+randrange(10, 20, 5)
+```
+
+Finally, for random real numbers between 0 and 1 we use `random()`.
+
+```python
+from random import random
+random()
+```
+
+### Other places to get Python code
+
+Third-party Python code is plentiful, fortunately. Good resources are [PyPy](https://doc.pypy.org/en/latest/) or package-specific official sites such as [the Pandas official site](https://pandas.pydata.org/docs/)
+ 
